@@ -17,20 +17,20 @@ public class AdminDao {
 	JdbcTemplate jdbcTemplate;
 	
 	public void addAdmin(Admin admin) {
-		String sql = "INSERT INTO Admin (adminPasswd, adminBalance, "
+		String sql = "INSERT INTO admin (adminPasswd, adminBalance, "
 				+ "adminAccountNum) VALUES (?, ?, ?)";
 		jdbcTemplate.update(sql, admin.getAdminPasswd(), admin.getAdminBalance()
 				, admin.getAdminAccountNum());
 	}
 	
 	public void updateAdmin(Admin admin) {
-		String sql = "UPDATE Admin SET adminPasswd = ?, adminAccountNum = ?, adminBalance = ? WHERE aid = ?";
+		String sql = "UPDATE admin SET adminPasswd = ?, adminAccountNum = ?, adminBalance = ? WHERE aid = ?";
 		jdbcTemplate.update(sql, admin.getAdminPasswd(), 
 				admin.getAdminAccountNum(),admin.getAdminBalance(), admin.getAid());
 	}
 	
 	public List<Admin> findAllAdmin() {
-		String sql = "SELECT * FROM Admin";
+		String sql = "SELECT * FROM admin";
 		try {
 			return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Admin>(Admin.class));
 		}catch(DataAccessException e) {
@@ -39,7 +39,7 @@ public class AdminDao {
 	}
 	
 	public Admin findAdminByPasswd(String passwd) {
-		String sql = "SELECT * FROM Admin WHERE adminPasswd = ?";
+		String sql = "SELECT * FROM admin WHERE adminPasswd = ?";
 		try{
 			return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Admin>(Admin.class), passwd);
 		}catch(DataAccessException e) {
@@ -48,7 +48,7 @@ public class AdminDao {
 	}
 	
 	public Admin findAdminByAccountNum(String accountNum) {
-		String sql = "SELECT * FROM Admin WHERE adminAccountNum = ?";
+		String sql = "SELECT * FROM admin WHERE adminAccountNum = ?";
 		try {
 			return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Admin>(Admin.class), accountNum);
 		}catch(DataAccessException e) {

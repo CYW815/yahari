@@ -18,14 +18,14 @@ public class CustomerDao {
 	JdbcTemplate jdbcTemplate;
 	
 	public void addCustomer(Customer customer) {
-		String sql = "INSERT INTO Customer (name, phone, passwd, balance, point) VALUE (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO customer (name, phone, passwd, balance, point) VALUE (?, ?, ?, ?, ?)";
 		
 		jdbcTemplate.update(sql, customer.getName(), customer.getPhone(), 
 				customer.getPasswd(), customer.getBalance(), customer.getPoint());
 	}
 	
 	public void updateCustomer(Customer customer) {
-		String sql = "UPDATE Customer SET name = ?, phone = ?, passwd = ?, "
+		String sql = "UPDATE customer SET name = ?, phone = ?, passwd = ?, "
 				+ "balance = ?, point = ? WHERE cid = ?";
 		jdbcTemplate.update(sql, customer.getName(), customer.getPhone(), 
 				customer.getPasswd(), customer.getBalance(), customer.getPoint(), 
@@ -33,7 +33,7 @@ public class CustomerDao {
 	}
 	
 	public Customer findCustomerByPhone(String phone) {
-		String sql = "SELECT * FROM Customer WHERE phone = ?";
+		String sql = "SELECT * FROM customer WHERE phone = ?";
 		try {
 			return jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<Customer>(Customer.class), phone);
 		}catch(DataAccessException e) {
@@ -42,17 +42,17 @@ public class CustomerDao {
 	}
 	
 	public List<Customer> findCustomerList(){
-		String sql = "SELECT * FROM Customer";
+		String sql = "SELECT * FROM customer";
 		return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Customer>(Customer.class));
 	}
 	
 	public long findCustomerCount() {
-		String sql = "SELECT count(*) FROM Customer";
+		String sql = "SELECT count(*) FROM customer";
 		return jdbcTemplate.queryForObject(sql, Long.class);
 	}
 	
 	public List<Customer> findCustomerByDate(Date date){
-		String sql = "SELECT * FROM Customer WHERE DATE(regDate) = ?";
+		String sql = "SELECT * FROM customer WHERE DATE(regDate) = ?";
 		try {
 			return jdbcTemplate.query(sql, new BeanPropertyRowMapper<Customer>(Customer.class), date);
 		}catch(DataAccessException e) {
@@ -61,7 +61,7 @@ public class CustomerDao {
 	}
 	
 	public long findCustomerByDateCount(Date date) {
-		String sql = "SELECT count(*) FROM Customer WHERE DATE(regDate) = ?";
+		String sql = "SELECT count(*) FROM customer WHERE DATE(regDate) = ?";
 		return jdbcTemplate.queryForObject(sql, Long.class, date);
 	}
 }

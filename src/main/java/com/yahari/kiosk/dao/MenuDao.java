@@ -22,7 +22,7 @@ public class MenuDao {
 	}
 	
 	public void addMenu(Menu menu) {
-		String sql = "INSERT INTO Menu (name, price, menuType, imageName) "
+		String sql = "INSERT INTO menu (name, price, menuType, imageName) "
 				   + "VALUE (?, ?, ?, ?)";
 		
 		jdbcTemplate.update(sql, menu.getName(), 
@@ -30,22 +30,22 @@ public class MenuDao {
 	}
 	
 	public List<Menu> findAllMenuList(){
-		String sql = "SELECT mid, name, price, menuType, imageName FROM Menu";
+		String sql = "SELECT mid, name, price, menuType, imageName FROM menu";
 		return jdbcTemplate.query(sql, new MenuRowMapper());
 	}
 	
 	public void updateMenu(Menu menu) {
-		String sql = "UPDATE Menu SET price = ? WHERE name = ?";
+		String sql = "UPDATE menu SET price = ? WHERE name = ?";
 		jdbcTemplate.update(sql, menu.getPrice(), menu.getName());
 	}
 	
 	public Menu findMenuByName(String name) {
-		String sql ="SELECT * FROM Menu WHERE name = ?";
+		String sql ="SELECT * FROM menu WHERE name = ?";
 		return jdbcTemplate.queryForObject(sql, new MenuRowMapper(), name);
 	}
 	
 	public void deleteMenuByMenuName(String name) {
-		String sql = "DELETE FROM Menu WHERE name = ?";
+		String sql = "DELETE FROM menu WHERE name = ?";
 		jdbcTemplate.update(sql, name);
 	}
 }
